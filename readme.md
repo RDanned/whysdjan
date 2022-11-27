@@ -16,6 +16,9 @@
 - python manage.py migrate
 - python manage.py runserver
 
+## After project started
+- try to make post request to import endpoint with json data
+
 Endpoints:
 [POST] /import - import json file
 [GET] /detail/<nazev modelu>/ - get all records by model name
