@@ -16,6 +16,6 @@
 - python manage.py runserver
 
 Endpoints:
-[POST] /import - tento endpoint bude příjímat data a parsovat data
-[GET] /detail/<nazev modelu>/ - seznam záznamů na základě názvu modelu
-[GET] /detail/<nazev modelu>/<id> - všechna data ke konkrétnímu záznamu
+[POST] /import - import json file
+[GET] /detail/<nazev modelu>/ - get all records by model name
+[GET] /detail/<nazev modelu>/<id> - get object by model name and object id
