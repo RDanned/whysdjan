@@ -104,13 +104,13 @@ class Catalog(models.Model):
     attributes_ids = models.ManyToManyField(Attribute)
 
     def __setattr__(self, attr, value):
-        if attr == 'products_ids' and all(item is int for item in value):
+        if attr == 'products_ids' and all(type(item) is int for item in value):
             new_val = Product.objects.filter(pk__in=value)
             self.products_ids.set(new_val)
-        elif attr == 'attributes_ids' and all(item is int for item in value):
+        elif attr == 'attributes_ids' and all(type(item) is int for item in value):
             new_val = Attribute.objects.filter(pk__in=value)
             self.attributes_ids.set(new_val)
-        elif attr == 'obrazek_id' and value is int:
+        elif attr == 'obrazek_id' and type(value) is int:
             super(Catalog, self).__setattr__('obrazek_id', Image.objects.get(pk=value))
         else:
             super(Catalog, self).__setattr__(attr, value)

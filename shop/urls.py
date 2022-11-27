@@ -9,11 +9,11 @@ app_name = 'shop'
 #     path('send/', form.save_application),
 #     path('form_data/', form.get_form_data),
 # ]
-#router = routers.SimpleRouter()
+router = routers.SimpleRouter()
 #router.register(r'import', load.index), basename='import')
 
 urlpatterns = [
     path('import/', load.index),
 ]
 
-#urlpatterns += router.urls
+urlpatterns += router.urls

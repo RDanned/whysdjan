@@ -69,6 +69,8 @@ def index(request):
             'items': grouped_data[model_name]
         })
 
+    pprint.pp(reordered_grouped_data)
+
     for data in reordered_grouped_data:
         for data_object in data['items']:
             tmp = model_serializers[data['model_name']](data=data_object)
