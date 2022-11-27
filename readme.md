@@ -13,6 +13,7 @@
 - set django secret key in .env file
 
 ## Run project (in dev mode)
+- source ./venv/bin/activate
 - python manage.py migrate
 - python manage.py runserver
 
