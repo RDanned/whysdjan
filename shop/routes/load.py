@@ -1,7 +1,6 @@
 from rest_framework.decorators import permission_classes, api_view
 from rest_framework import serializers
-from rest_framework.permissions import IsAuthenticated, AllowAny, IsAuthenticatedOrReadOnly
-from django.http import HttpResponse, FileResponse, JsonResponse, HttpResponseForbidden
+from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from collections import defaultdict
@@ -17,7 +16,7 @@ def index(request):
 
     grouped_data = defaultdict(list)
     response = {}
-    response.setdefault('errors', {})
+    response.setdefault('errors', [])
     status = 200
 
     allowed_to_import = apps.get_app_config('shop').allowed_to_import
@@ -42,7 +41,9 @@ def index(request):
     for obj in request.data:
 
         if len(obj.keys()) > 1:
-            response['errors'].append('Request contains invalid model format')
+            response['errors'].append({
+                'message': 'Request contains invalid model format'
+            })
             break
         else:
             model_name = list(obj.keys())[0]
@@ -50,7 +51,10 @@ def index(request):
         if model_name in allowed_to_import:
             grouped_data[model_name].append(obj[model_name])
         else:
-            response['errors'].append(f'Request contains invalid model: {model_name}')
+            response['errors'].append({
+                'model_name': model_name,
+                'message': f'Request contains invalid model: {model_name}'
+            })
             status = 400
             break
 
@@ -69,7 +73,7 @@ def index(request):
             'items': grouped_data[model_name]
         })
 
-    pprint.pp(reordered_grouped_data)
+    #pprint.pp(reordered_grouped_data)
 
     for data in reordered_grouped_data:
         for data_object in data['items']:
@@ -77,7 +81,10 @@ def index(request):
             try:
                 tmp.is_valid(raise_exception=True)
             except serializers.ValidationError as e:
-                response['errors'][data['model_name']] = repr(e)
+                response['errors'].append({
+                    'model_name': data['model_name'],
+                    'message': e.args
+                })
                 status = 400
                 break
             else:

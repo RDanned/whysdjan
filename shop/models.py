@@ -27,6 +27,7 @@ class Attribute(models.Model):
     nazev_atributu_id = models.ForeignKey(AttributeName, on_delete=models.PROTECT)
     hodnota_atributu_id = models.ForeignKey(AttributeValue, on_delete=models.PROTECT)
 
+    # We rewrite __setattr__ to make it easier to assign keys
     def __setattr__(self, attr, value):
         if attr == 'nazev_atributu_id' and type(value) is int:
             super(Attribute, self).__setattr__('nazev_atributu_id', AttributeName.objects.get(pk=value))
@@ -57,6 +58,7 @@ class ProductAttributes(models.Model):
     attribute = models.ForeignKey(Attribute, on_delete=models.PROTECT)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
 
+    # We rewrite __setattr__ to make it easier to assign keys
     def __setattr__(self, attr, value):
         if attr == 'attribute' and type(value) is int:
             super(ProductAttributes, self).__setattr__('attribute', Attribute.objects.get(pk=value))
@@ -84,6 +86,7 @@ class ProductImage(models.Model):
     obrazek_id = models.ForeignKey(Image, on_delete=models.PROTECT)
     nazev = models.TextField()
 
+    # We rewrite __setattr__ to make it easier to assign keys
     def __setattr__(self, attr, value):
         if attr == 'product' and type(value) is int:
             super(ProductImage, self).__setattr__('product', Product.objects.get(pk=value))
@@ -103,6 +106,7 @@ class Catalog(models.Model):
     products_ids = models.ManyToManyField(Product)
     attributes_ids = models.ManyToManyField(Attribute)
 
+    # We rewrite __setattr__ to make it easier to assign keys
     def __setattr__(self, attr, value):
         if attr == 'products_ids' and all(type(item) is int for item in value):
             new_val = Product.objects.filter(pk__in=value)
