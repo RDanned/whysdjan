@@ -8,7 +8,7 @@ class AttributeNameSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.AttributeName
-        fields = ['nazev', 'kod', 'zobrazit']
+        fields = ['id', 'nazev', 'kod', 'zobrazit']
 
 
 class AttributeValueSerializer(serializers.ModelSerializer):
@@ -16,7 +16,7 @@ class AttributeValueSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.AttributeValue
-        fields = ['hodnota']
+        fields = ['id', 'hodnota']
 
 
 class AttributeSerializer(serializers.ModelSerializer):
@@ -25,7 +25,7 @@ class AttributeSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Attribute
-        fields = ['nazev_atributu_id', 'hodnota_atributu_id']
+        fields = ['id', 'nazev_atributu_id', 'hodnota_atributu_id']
 
 
 class ProductSerializer(serializers.ModelSerializer):
@@ -38,7 +38,7 @@ class ProductSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Product
-        fields = ['nazev', 'description', 'cena', 'mena', 'published_on', 'is_published']
+        fields = ['id', 'nazev', 'description', 'cena', 'mena', 'published_on', 'is_published']
 
 
 class ProductAttributesSerializer(serializers.ModelSerializer):
@@ -47,7 +47,7 @@ class ProductAttributesSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.ProductAttributes
-        fields = ['attribute', 'product']
+        fields = ['id', 'attribute', 'product']
 
 
 class ImageSerializer(serializers.ModelSerializer):
@@ -56,7 +56,7 @@ class ImageSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Image
-        fields = ['obrazek', 'nazev']
+        fields = ['id', 'obrazek', 'nazev']
 
 
 class ProductImageSerializer(serializers.ModelSerializer):
@@ -66,7 +66,7 @@ class ProductImageSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.ProductImage
-        fields = ['product', 'obrazek_id', 'nazev']
+        fields = ['id', 'product', 'obrazek_id', 'nazev']
 
 
 class CatalogSerializer(serializers.ModelSerializer):
@@ -77,4 +77,4 @@ class CatalogSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = models.Catalog
-        fields = ['nazev', 'obrazek_id', 'products_ids', 'attributes_ids']
+        fields = ['id', 'nazev', 'obrazek_id', 'products_ids', 'attributes_ids']
