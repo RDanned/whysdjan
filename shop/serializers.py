@@ -1,10 +1,11 @@
 import pprint
-
 from rest_framework import serializers
-from . import models
+from shop import models
 
 # Mixin for extra fields checking
 class ExtraFieldsMixin:
+
+    # Raise an error if extra fields were provided
     def is_valid(self, raise_exception=False):
         if hasattr(self, 'initial_data'):
             payload_keys = self.initial_data.keys()  # all the payload keys
