@@ -10,6 +10,7 @@
 - clone project
 - python -m venv venv
 - pip install -r ./requirements.txt
+- set django secret key in .env file
 
 ## Run project (in dev mode)
 - python manage.py migrate
